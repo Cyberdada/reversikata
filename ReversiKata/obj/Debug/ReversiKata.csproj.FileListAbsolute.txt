@@ -1,0 +1,5 @@
+c:\dotnet\ReversiKata\ReversiKata\bin\Debug\ReversiKata.dll
+c:\dotnet\ReversiKata\ReversiKata\bin\Debug\ReversiKata.pdb
+c:\dotnet\ReversiKata\ReversiKata\obj\Debug\ReversiKata.dll
+c:\dotnet\ReversiKata\ReversiKata\obj\Debug\ReversiKata.pdb
+c:\dotnet\ReversiKata\ReversiKata\obj\Debug\ReversiKata.csprojResolveAssemblyReference.cache

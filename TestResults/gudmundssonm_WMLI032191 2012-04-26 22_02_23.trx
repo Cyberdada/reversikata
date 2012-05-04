@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="7c70fb69-3c16-4023-b131-0e05ccf89ea0" name="gudmundssonm@WMLI032191 2012-04-26 22:02:23" runUser="GROUPINFRA\gudmundssonm" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="986344fc-0c1f-4e15-b1fb-ca8d862367e0">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="gudmundssonm_WMLI032191 2012-04-26 22_02_23">
+      <DeploymentItem filename="c:\dotnet\ReversiKata\ReversiKata\bin\Debug\ReversiKata.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-04-26T22:02:23.5964836+02:00" queuing="2012-04-26T22:02:24.7765489+02:00" start="2012-04-26T22:02:24.8495531+02:00" finish="2012-04-26T22:02:26.1966301+02:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestChangeOfCoordinateState" storage="c:\dotnet\reversikata\testreversikata\bin\debug\testreversikata.dll" id="48741c66-0ace-f9f9-8573-d703e6c6e94f">
+      <Execution id="cf98831a-3cb1-4dd0-857d-0f320ec4b337" />
+      <TestMethod codeBase="c:/dotnet/ReversiKata/TestReversiKata/bin/Debug/TestReversiKata.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestReversiKata.TestReversiKata, TestReversiKata, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestChangeOfCoordinateState" />
+    </UnitTest>
+    <UnitTest name="TestReversiKataMainTest" storage="c:\dotnet\reversikata\testreversikata\bin\debug\testreversikata.dll" id="5ea8bd89-1fb8-49c1-a428-65b7202051c0">
+      <Execution id="96fc9a0a-473a-442a-8e28-d36549e0548c" />
+      <TestMethod codeBase="c:/dotnet/ReversiKata/TestReversiKata/bin/Debug/TestReversiKata.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestReversiKata.TestReversiKata, TestReversiKata, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestReversiKataMainTest" />
+    </UnitTest>
+    <UnitTest name="TestCoordinateStateOfEmptyBoard" storage="c:\dotnet\reversikata\testreversikata\bin\debug\testreversikata.dll" id="8ff47382-c427-e015-f1b2-e2f0017a140d">
+      <Execution id="2b1dd7bb-30bf-46e3-bbb7-39e880fcee3f" />
+      <TestMethod codeBase="c:/dotnet/ReversiKata/TestReversiKata/bin/Debug/TestReversiKata.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestReversiKata.TestReversiKata, TestReversiKata, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestCoordinateStateOfEmptyBoard" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="5ea8bd89-1fb8-49c1-a428-65b7202051c0" executionId="96fc9a0a-473a-442a-8e28-d36549e0548c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="48741c66-0ace-f9f9-8573-d703e6c6e94f" executionId="cf98831a-3cb1-4dd0-857d-0f320ec4b337" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ff47382-c427-e015-f1b2-e2f0017a140d" executionId="2b1dd7bb-30bf-46e3-bbb7-39e880fcee3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="96fc9a0a-473a-442a-8e28-d36549e0548c" testId="5ea8bd89-1fb8-49c1-a428-65b7202051c0" testName="TestReversiKataMainTest" computerName="WMLI032191" duration="00:00:00.0540424" startTime="2012-04-26T22:02:24.8955557+02:00" endTime="2012-04-26T22:02:26.0856238+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="96fc9a0a-473a-442a-8e28-d36549e0548c">
+      <Output>
+        <DebugTrace>X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+X =%d Y =%d
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cf98831a-3cb1-4dd0-857d-0f320ec4b337" testId="48741c66-0ace-f9f9-8573-d703e6c6e94f" testName="TestChangeOfCoordinateState" computerName="WMLI032191" duration="00:00:00.0009117" startTime="2012-04-26T22:02:26.1016247+02:00" endTime="2012-04-26T22:02:26.1086251+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf98831a-3cb1-4dd0-857d-0f320ec4b337">
+    </UnitTestResult>
+    <UnitTestResult executionId="2b1dd7bb-30bf-46e3-bbb7-39e880fcee3f" testId="8ff47382-c427-e015-f1b2-e2f0017a140d" testName="TestCoordinateStateOfEmptyBoard" computerName="WMLI032191" duration="00:00:00.0002175" startTime="2012-04-26T22:02:26.1146254+02:00" endTime="2012-04-26T22:02:26.1206258+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b1dd7bb-30bf-46e3-bbb7-39e880fcee3f">
+    </UnitTestResult>
+  </Results>
+</TestRun>
