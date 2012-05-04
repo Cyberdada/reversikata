@@ -38,7 +38,7 @@ namespace ReversiKata
         public void ChangeCoordinateState(int x, int y, CoordinateType state)
         {
             if (x <= 0 || x > COLS || y <= 0 || y > ROWS)
-                throw new ArgumentException ("sIllegal coordinates");
+                throw new ArgumentException ("Illegal coordinates");
             Coordinate  itm =Coordinate(x, y); 
             itm.Type = state;     
         }
