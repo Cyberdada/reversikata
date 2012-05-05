@@ -18,7 +18,7 @@ describe("ReversiModel", function() {
 
     it("should make it black", function() {
 		RM.emptyBoard(8,8);	
-		RM.ChangeCoordinateState(4,4,coordinateState.Black);
+		RM.changeCoordinateState(4,4,coordinateState.Black);
 		expect(RM.coordinateState(4,4)).toEqual(coordinateState.Black);
 
     });

@@ -29,7 +29,7 @@ var RM = (function () {
         for (var i = 0; i < max; i++)  {
             var coord = {
               X: ( i % rows) + 1,
-              Y: 1 + i / cols,
+              Y: parseInt(1 + i / cols,10),
               State:coordinateState.Empty
             };
             _Coordinates.push(coord);
@@ -37,9 +37,13 @@ var RM = (function () {
         }
 
       },
-     coordinateState: function(x,y) {
+      coordinateState: function(x,y) {
         return coordinate(x,y).State;
-    }
+      },
+      changeCoordinateState: function(x,y, cs)
+      {
+       coordinate(x,y).State = cs; 
+      }
   }
 }
 )();
