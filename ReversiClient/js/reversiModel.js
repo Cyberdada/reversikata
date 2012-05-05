@@ -3,15 +3,15 @@
 
 var RM = (function () {
     // Privates
-    var Rows = [];
-    var _currentControl =null;
-   
+  
 
     //Public functions
     return {
-     
+     coordinateState: function() {
+
     }
   }
+}
 )();
 
  
