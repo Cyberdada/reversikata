@@ -24,6 +24,7 @@ var RM = (function () {
       emptyBoard: function(cols,rows) {
         _Rows = rows;
         _Cols = cols;
+         _Coordinates = [];
         var max = rows * cols;
         for (var i = 0; i < max; i++)  {
             var coord = {
