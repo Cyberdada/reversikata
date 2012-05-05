@@ -18,6 +18,17 @@ var RM = (function () {
     {
       return _Coordinates[((y - 1) * _Rows) + x-1];
     };
+
+    var playerMarkers = function(player) 
+    {
+      var retval = [];
+      $.each (_Coordinates, function (ix, itm) {
+          if (itm.State === player) {
+            retval.push(itm);
+          }
+      });
+      return retval; 
+    };
     //Public functions
     return {
 
@@ -44,7 +55,7 @@ var RM = (function () {
       },
 
       validPositions: function(player) {
-        var opponent = player == coordinateState.Black 
+        var opponent = player === coordinateState.Black 
             ? coordinateState.White
             : coordinateState.Black;
 
@@ -54,19 +65,19 @@ var RM = (function () {
          var currY; 
          var foundOpponent = false; 
 
-         $.Each(markers, function(ix, itm){
-            $.Each(directions, function(ix, dir) {
+         $.each(markers, function(ix, itm){
+            $.each(directions, function(ix, dir) {
               currX = itm.X + dir.X;
               currY = itm.Y + dir.Y; 
               foundOpponent = false;
-              while(coordinateState(currX, currY) == opponent)
+              while( RM.coordinateState(currX, currY) === opponent)
               {
                 foundOpponent = true; 
-                currX += d.X; 
-                currY += d.Y; 
+                currX += dir.X; 
+                currY += dir.Y; 
               }
 
-              if(foundOpponent && coordinateState(currX, currY) ==coordinateState.Empty) {
+              if(foundOpponent && RM.coordinateState(currX, currY) === coordinateState.Empty) {
                 retval.push(coordinate(currX, currY));
               }
             });
