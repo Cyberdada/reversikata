@@ -13,7 +13,6 @@ var RM = (function () {
     var _Coordinates = [];
     var _Rows = 0;
     var _Cols = 0;
-
     var coordinate = function(x,y)
     {
       return _Coordinates[((y - 1) * _Rows) + x-1];
@@ -22,6 +21,7 @@ var RM = (function () {
     var playerMarkers = function(player) 
     {
       var retval = [];
+
       $.each (_Coordinates, function (ix, itm) {
           if (itm.State === player) {
             retval.push(itm);
@@ -35,18 +35,21 @@ var RM = (function () {
       emptyBoard: function(cols,rows) {
         _Rows = rows;
         _Cols = cols;
-         _Coordinates = [];
+        _Coordinates = [];
         var max = rows * cols;
         for (var i = 0; i < max; i++)  {
             var coord = {
               X: ( i % rows) + 1,
               Y: parseInt(1 + i / cols,10),
-              State:coordinateState.Empty
+              State: coordinateState.Empty
             };
             _Coordinates.push(coord);
         }
       },
       coordinateState: function(x,y) {
+        if (x <= 0 || x > _Cols || y <= 0 || y > _Rows) {
+          return coordinateState.Illegal;
+        }
         return coordinate(x,y).State;
       },
       changeCoordinateState: function(x,y, cs)
