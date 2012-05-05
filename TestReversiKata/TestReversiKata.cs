@@ -123,8 +123,7 @@ namespace TestReversiKata
         public void TestCoordinateStateOfEmptyBoard()
         {
             //Given An initalized ReversiBoard
-            // And a change of coordinatestate [4,4] to Black
-            //Then coordinate 4,4 on reversiboard should be Black
+            //Then coordinate 4,4 on reversiboard should be Empty
 
             ReversiBoard board = new ReversiBoard();
             

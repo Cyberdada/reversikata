@@ -11,13 +11,21 @@ var coordinateState = {
 var RM = (function () {
     // Privates
     var _Coordinates = [];
+    var _Rows = 0;
+    var _Cols = 0;
 
+    var coordinate = function(x,y)
+    {
+      return _Coordinates[((y - 1) * _Rows) + x-1];
+    };
     //Public functions
     return {
 
       emptyBoard: function(cols,rows) {
-
-        for (var i = 0; i < rows * cols; i++)  {
+        _Rows = rows;
+        _Cols = cols;
+        var max = rows * cols;
+        for (var i = 0; i < max; i++)  {
             var coord = {
               X: ( i % rows) + 1,
               Y: 1 + i / cols,
@@ -29,7 +37,7 @@ var RM = (function () {
 
       },
      coordinateState: function(x,y) {
-        return coordinateState.Empty;
+        return coordinate(x,y).State;
     }
   }
 }
