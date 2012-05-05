@@ -38,7 +38,7 @@ describe("ReversiModel", function() {
 		RM.changeCoordinateState(5,5,coordinateState.Black);
 		RM.changeCoordinateState(4,5,coordinateState.White);
 		RM.changeCoordinateState(5,4,coordinateState.White);
-		var retval = RM.GetValidPositions(CoordinateType.Black);
+		var retval = RM.validPositions(coordinateState.Black);
 		expect(retval.length).toEqual(4);
 
 		expect(retval[0].X).toEqual(6);
