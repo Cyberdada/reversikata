@@ -11,27 +11,21 @@ var Reversi = (function () {
     return {
       changeSpace: function() {
 
- if ($(this).hasClass("blue-circle")) {
-  $(this).removeClass("blue-circle");
- }
-else if ($(this).hasClass("red-circle")) {
-  $(this).removeClass("red-circle");
-  $(this).addClass("blue-circle");
- }
- else {
-  $(this).addClass("red-circle");
-
- }
-
-
+        if ($(this).hasClass("blue-circle")) {
+          $(this).removeClass("blue-circle");
+        }
+        else if ($(this).hasClass("red-circle")) {
+          $(this).removeClass("red-circle");
+          $(this).addClass("blue-circle");
+        }
+        else {
+          $(this).addClass("red-circle");
+        }
       }
-
+    }
   }
-}
 )();
 
   	$(document).ready(function () {
   	      $( ".coorSpace" ).on("click",Reversi.changeSpace);
-
-
   });
