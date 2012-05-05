@@ -33,16 +33,14 @@ var RM = (function () {
               State:coordinateState.Empty
             };
             _Coordinates.push(coord);
-
         }
-
       },
       coordinateState: function(x,y) {
         return coordinate(x,y).State;
       },
       changeCoordinateState: function(x,y, cs)
       {
-       coordinate(x,y).State = cs; 
+        coordinate(x,y).State = cs; 
       }
   }
 }
