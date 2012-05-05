@@ -1,17 +1,18 @@
 describe("ReversiModel", function() {
 	
-	//var _Model;
 	
-
 	beforeEach(function() {
-		//_Model = new RM();
+	
 	});
 
 
-	describe("Given an empty board", function() {});
+	describe("Given an empty board", function() {
 
+	});
+    
 	it("should have coordinate [4,4] with status empty", function () {
-		expect(RM.coordinateState(4,4)).toEqual("empty");
+		RM.emptyBoard(8,8);	
+		expect(RM.coordinateState(4,4)).toEqual(0);
 	});
 
 });
