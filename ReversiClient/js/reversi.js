@@ -22,7 +22,8 @@ var Reversi = (function () {
     var validPositions = function()
     {
       var player; 
-      if($(":radio").val() === "Black") {
+      
+      if($("input[@name=rdoPlayer]:checked").val() === "Black") {
         player =  coordinateState.Black;
       }
       else {
