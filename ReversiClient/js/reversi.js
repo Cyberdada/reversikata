@@ -17,7 +17,7 @@ var Reversi = (function () {
           parseInt(idstr.substr(5,1),10), 
           newState
           );
-    }
+    };
 
     var validPositions = function()
     {
@@ -30,7 +30,7 @@ var Reversi = (function () {
         player = coordinateState.White;
       }
       return  RM.validPositions(player);
-    }
+    };
     //Public functions
     return {
 
