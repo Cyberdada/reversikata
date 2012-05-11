@@ -38,12 +38,11 @@ var RM = (function () {
         _Coordinates = [];
         var max = rows * cols;
         for (var i = 0; i < max; i++)  {
-            var coord = {
-              X: ( i % rows) + 1,
-              Y: parseInt(1 + i / cols,10),
-              State: coordinateState.Empty
-            };
-            _Coordinates.push(coord);
+          _Coordinates.push( {
+            X: ( i % rows) + 1,
+            Y: parseInt( 1 + i / cols, 10),
+            State: coordinateState.Empty
+          });
         }
       },
       coordinateState: function(x,y) {
