@@ -13,9 +13,25 @@ var RM = (function () {
     var _Coordinates = [];
     var _Rows = 0;
     var _Cols = 0;
+    var notifyList  =[];
     var coordinate = function(x,y)
     {
       return _Coordinates[((y - 1) * _Rows) + x-1];
+    };
+
+    var notify = function(x,y, cs)
+    {
+        $.each( notifyList, function(ix, itm) {
+            itm(x,y,cs);  
+        });
+
+    };
+
+    var getOpponent = function(player)
+    {
+      return  player === coordinateState.Black 
+        ? coordinateState.White
+        : coordinateState.Black;
     };
 
     var playerMarkers = function(player) 
@@ -32,6 +48,10 @@ var RM = (function () {
     //Public functions
     return {
 
+      addToBeNotified: function(func) {
+          notifyList.push(func);
+      }, 
+      
       emptyBoard: function(cols,rows) {
         _Rows = rows;
         _Cols = cols;
@@ -45,22 +65,51 @@ var RM = (function () {
           });
         }
       },
+
       coordinateState: function(x,y) {
         if (x <= 0 || x > _Cols || y <= 0 || y > _Rows) {
           return coordinateState.Illegal;
         }
         return coordinate(x,y).State;
       },
-      changeCoordinateState: function(x,y, cs)
+
+      changeCoordinateState: function( x, y, cs)
       {
         coordinate(x,y).State = cs; 
+        notify(x, y, cs);
       },
 
-      validPositions: function(player) {
-        var opponent = player === coordinateState.Black 
-            ? coordinateState.White
-            : coordinateState.Black;
+      
+      makeMove: function (x, y, player) {
 
+         var opponent = getOpponent(player);
+         var currX; 
+         var currY;
+         var candidates =[];
+
+         RM.changeCoordinateState(x,y,player);
+
+        $.each(directions, function(ix, dir) {
+          currX = x + dir.X;
+          currY = y + dir.Y; 
+          while( RM.coordinateState(currX, currY) === opponent)
+          {
+            candidates.push(coordinate(currX,currY))
+            currX += dir.X; 
+            currY += dir.Y; 
+          }
+          if( RM.coordinateState(currX, currY) == player)
+          {
+            $.each(candidates, function(ix,itm){
+              RM.changeCoordinateState(itm.X,itm.Y,player);                
+            });   
+          }
+         candidates =  candidates.splice(candidates.length, candidates.length);
+        });
+      },
+
+      validPositions: function( player) {
+         var opponent = getOpponent(player);
          var retval = [];
          var markers = playerMarkers(player);   
          var currX; 

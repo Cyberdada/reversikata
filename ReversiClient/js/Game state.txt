@@ -1,0 +1,23 @@
+Game state
+
+New Game
+Blacks Turn 
+Whites Turn 
+Game Over
+
+
+SELECT CASE STATE 
+New game
+	initalize
+Blacks Turn
+	Wait for player
+    ValidateMove
+Whites Turn 
+	Make Move
+	ValidateMove 
+Game Over 
+	Show Result
+
+
+
+	Model - Controller - View

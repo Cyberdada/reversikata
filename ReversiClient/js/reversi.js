@@ -2,7 +2,7 @@
 /// <reference path="js/reversi.js" />
 /// <reference path="js/direction.js" />
 /// <reference path="js/reversiModel.js" />
-
+/// <reference path="js/reversiGameState.js" />
 "use strict";
 
 var Reversi = (function () {
@@ -10,29 +10,38 @@ var Reversi = (function () {
     var Rows = [];
     var _currentControl =null;
    
-    var changeModelState = function(idstr, newState)
-    {
-      RM.changeCoordinateState(
-          parseInt(idstr.substr(3,1),10), 
-          parseInt(idstr.substr(5,1),10), 
-          newState
-          );
-    };
 
     var validPositions = function()
     {
       var player; 
       
-      if($("input[@name=rdoPlayer]:checked").val() === "Black") {
+     // if($("input[@name=rdoPlayer]:checked").val() === "Black") {
         player =  coordinateState.Black;
-      }
-      else {
-        player = coordinateState.White;
-      }
-      return  RM.validPositions(player);
+    //  }
+     // else {
+     //   player = coordinateState.White;
+     // }
+      return  RGS.validPositions(coordinateState.Black);
     };
     //Public functions
     return {
+
+    changeXYSpace : function( x, y, cs) {
+        var id ="#xy_" + parseInt(x, 10) + "_" + parseInt(y,10); 
+        var newClass = "blue-circle";
+        var oldClass= "red-circle";
+        var newState = cs;
+        if (cs === coordinateState.White){
+          oldClass = "blue-circle";
+          newClass= "red-circle";
+        }
+
+        $(id).removeClass(oldClass);
+        $(id).addClass(newClass);
+      },
+
+
+      
 
       showValidMoves: function() {
         $(".coorSpace").removeClass("available");
@@ -41,6 +50,7 @@ var Reversi = (function () {
             $("#xy_" + itm.X + "_" + itm.Y).addClass("available");
           });
       }, 
+      
       changeSpace: function() {
 
         if ($(this).hasClass("blue-circle")) {
@@ -63,7 +73,8 @@ var Reversi = (function () {
 
   	$(document).ready(function () {
   	      $( ".coorSpace" ).on("click",Reversi.changeSpace);
-          $("#btnCheck").on("click", Reversi.showValidMoves)
-          RM.emptyBoard(8,8);
-
+          $("#btnCheck").on("click", Reversi.showValidMoves);
+          
+          RGS.askToBeNotified(Reversi.changeXYSpace); 
+          RGS.playGame();
     });

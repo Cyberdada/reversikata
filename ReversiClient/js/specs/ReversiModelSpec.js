@@ -53,4 +53,27 @@ describe("ReversiModel", function() {
 		expect(retval[3].Y).toEqual(5);
 
      });
+
+     //Given An initialized ReversiBoard
+     //When Black is on [4,4] + [5,5]
+     //And White is on [4,5] + [5,4]
+     //And its Black Turn 
+     // Then the Result should be [5,3][6,4][3,5][4,6]
+     describe ("Given an initialized board with \
+     			white on [4,4] + [5,5] \
+     			And black on [4,5] + [5,4] \
+     			And its whites turn \
+     			And white plays [6,4]", function() {});
+     it("should changeCordinatestate on [5,4] to white", function() {
+     	RM.emptyBoard(8,8);
+		RM.changeCoordinateState(4,4,coordinateState.White);
+		RM.changeCoordinateState(5,5,coordinateState.White);
+		RM.changeCoordinateState(4,5,coordinateState.Black);
+		RM.changeCoordinateState(5,4,coordinateState.Black);
+		RM.makeMove(6,4, coordinateState.White);
+		
+		expect(RM.coordinateState(5,4)).toEqual(coordinateState.White);
+     });
+
+
 });
