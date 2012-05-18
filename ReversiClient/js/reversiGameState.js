@@ -9,12 +9,12 @@ var gameStates = {
     GameOver:3
 }
 
-
-
 var RGS = (function () {
 	//Privates 
 	var _myState = gameStates.NewGame;;
 	var _opponentCouldMove = true;
+
+	
 
 	var makeMove = function(player)
 	{
@@ -28,14 +28,19 @@ var RGS = (function () {
 		else {
 			checkGameOver();
 		}
-		if(_myState !== gameStates.GameOver) { 
-			if(player === coordinateState.Black) {
-				_myState =  gameStates.WhitesTurn;
-			}
-			else {
-				_myState =  gameStates.BlacksTurn;	
-			}
-		}	
+	};
+
+	var changeTurn = function(player) {
+		if(_myState === gameStates.GameOver) { 
+			return;
+		}
+		if(player === coordinateState.Black) {
+			_myState =  gameStates.WhitesTurn;
+		}
+		else {
+			_myState =  gameStates.BlacksTurn;	
+		}
+			
 	};
 
 	var checkGameOver = function() {
@@ -46,6 +51,7 @@ var RGS = (function () {
 		_opponentCouldMove = false;
 		return false;
 	};
+
 	var	newGame = function() {
 	    
 	    RM.emptyBoard(8,8);
@@ -53,60 +59,58 @@ var RGS = (function () {
 	    RM.changeCoordinateState(5,5,coordinateState.White);
 	    RM.changeCoordinateState(4,5,coordinateState.Black);
 	    RM.changeCoordinateState(5,4,coordinateState.Black);
-	    _myState = gameStates.BlacksTurn;
-	    
-
-	 };
-
-	 var blacksTurn = function() {
-		 makeMove(coordinateState.Black); 	
-
+	    _myState = gameStates.WhitesTurn;
 	 };
 
 	 var whitesTurn = function() {
-	 	
-	     	makeMove(coordinateState.White);
+	     makeMove(coordinateState.White);
+	     changeTurn(coordinateState.White);
 	 };
 
 	var gameOver = function() {
-
 	};
 
-
-
-
 	return  {
+		  
+		blacksMove : function(e, itm) {
+	 	if(itm !== null && itm !== undefined){
+	 		_opponentCouldMove = true;
+	 		RM.makeMove(itm.X, itm.Y, itm.State);	
+	 	}
+	 	else {
+			checkGameOver();
+		} 	
+		 changeTurn(coordinateState.Black);
+		 RGS.playGame();
+	 	},
 
-		playGame : function() {
-        
-		
+
+		 playGame : function() {
+        		
 		while(_myState !== gameStates.GameOver) {
-	
 			switch (_myState) {
+				case gameStates.NewGame:
+					newGame();
+					break;
+				case gameStates.BlacksTurn:
 
-			case gameStates.NewGame:
-				newGame();
-
-			case gameStates.BlacksTurn:
-				 blacksTurn(); 
-				
-				break;
-			case gameStates.WhitesTurn:
-				whitesTurn(); 
-				break;
+				   $(document).trigger("BlacksTurn",
+				   		[RM.validPositions(coordinateState.Black)] );
+				 	return;
+				 	//blacksTurn(); 	
+					break;
+				case gameStates.WhitesTurn:
+					whitesTurn(); 
+					break;
 			}
-		
 		}
 		gameOver();
 	},
-
-		validPositions: function( player) {
-			return RM.validPositions( player);
-		},
-
-		askToBeNotified: function(func) {
-			RM.addToBeNotified(func);
-		}
 	}
 }
 )();
+
+$(document).ready(function () {
+
+ 	$(document).bind("BlacksMove", RGS.blacksMove); 
+});

@@ -13,18 +13,9 @@ var RM = (function () {
     var _Coordinates = [];
     var _Rows = 0;
     var _Cols = 0;
-    var notifyList  =[];
     var coordinate = function(x,y)
     {
       return _Coordinates[((y - 1) * _Rows) + x-1];
-    };
-
-    var notify = function(x,y, cs)
-    {
-        $.each( notifyList, function(ix, itm) {
-            itm(x,y,cs);  
-        });
-
     };
 
     var getOpponent = function(player)
@@ -37,7 +28,6 @@ var RM = (function () {
     var playerMarkers = function(player) 
     {
       var retval = [];
-
       $.each (_Coordinates, function (ix, itm) {
           if (itm.State === player) {
             retval.push(itm);
@@ -48,9 +38,6 @@ var RM = (function () {
     //Public functions
     return {
 
-      addToBeNotified: function(func) {
-          notifyList.push(func);
-      }, 
       
       emptyBoard: function(cols,rows) {
         _Rows = rows;
@@ -75,8 +62,11 @@ var RM = (function () {
 
       changeCoordinateState: function( x, y, cs)
       {
-        coordinate(x,y).State = cs; 
-        notify(x, y, cs);
+        var el =coordinate(x,y); 
+        el.State = cs; 
+
+        $( document ).trigger( "CoordinateStateChanged", [el] );
+      //  notify(x, y, cs);
       },
 
       
@@ -100,41 +90,43 @@ var RM = (function () {
           }
           if( RM.coordinateState(currX, currY) == player)
           {
-            $.each(candidates, function(ix,itm){
-              RM.changeCoordinateState(itm.X,itm.Y,player);                
+            $.each( candidates, function(ix,itm){
+              RM.changeCoordinateState( itm.X,itm.Y,player);                
             });   
           }
          candidates =  candidates.splice(candidates.length, candidates.length);
         });
       },
 
-      validPositions: function( player) {
-         var opponent = getOpponent(player);
-         var retval = [];
-         var markers = playerMarkers(player);   
-         var currX; 
-         var currY; 
-         var foundOpponent = false; 
+    validPositions: function( player) {
+       var opponent = getOpponent(player);
+       var retval = [];
+       var markers = playerMarkers(player);   
+       var currX; 
+       var currY; 
+       var foundOpponent = false; 
 
-         $.each(markers, function(ix, itm){
-            $.each(directions, function(ix, dir) {
-              currX = itm.X + dir.X;
-              currY = itm.Y + dir.Y; 
-              foundOpponent = false;
-              while( RM.coordinateState(currX, currY) === opponent)
-              {
-                foundOpponent = true; 
-                currX += dir.X; 
-                currY += dir.Y; 
-              }
+       $.each(markers, function(ix, itm){
+          $.each(directions, function(ix, dir) {
+            currX = itm.X + dir.X;
+            currY = itm.Y + dir.Y; 
+            foundOpponent = false;
+ 
+            while( RM.coordinateState(currX, currY) === opponent)
+            {
+              foundOpponent = true; 
+              currX += dir.X; 
+              currY += dir.Y; 
+            }
 
-              if(foundOpponent && RM.coordinateState(currX, currY) === coordinateState.Empty) {
-                retval.push(coordinate(currX, currY));
-              }
-            });
-         }); 
-         return retval;
-      }
+            if(foundOpponent && RM.coordinateState(currX, currY) 
+                === coordinateState.Empty) {
+              retval.push(coordinate(currX, currY));
+            }
+          });
+       }); 
+       return retval;
+    }
   }
 }
 )();

@@ -7,31 +7,16 @@
 
 var Reversi = (function () {
     // Privates
-    var Rows = [];
-    var _currentControl =null;
-   
-
-    var validPositions = function()
-    {
-      var player; 
-      
-     // if($("input[@name=rdoPlayer]:checked").val() === "Black") {
-        player =  coordinateState.Black;
-    //  }
-     // else {
-     //   player = coordinateState.White;
-     // }
-      return  RGS.validPositions(coordinateState.Black);
-    };
+  
     //Public functions
     return {
 
-    changeXYSpace : function( x, y, cs) {
-        var id ="#xy_" + parseInt(x, 10) + "_" + parseInt(y,10); 
+    changeXYSpace : function( e, itm) {
+        var id ="#xy_" + parseInt(itm.X, 10) + "_" + parseInt(itm.Y,10); 
         var newClass = "blue-circle";
         var oldClass= "red-circle";
-        var newState = cs;
-        if (cs === coordinateState.White){
+        var newState = itm.State;
+        if (newState === coordinateState.White){
           oldClass = "blue-circle";
           newClass= "red-circle";
         }
@@ -40,31 +25,27 @@ var Reversi = (function () {
         $(id).addClass(newClass);
       },
 
+      makeMove: function(e)
+      {
+          var target = e.currentTarget;
+          if($(target).hasClass("available"))
+          {
+            $(".coorSpace").removeClass("available");
+            $(document).trigger("BlacksMove",
+              [{X : parseInt(target.id.substr(3,1),10), 
+                Y : parseInt(target.id.substr(5,1),10), 
+                State : coordinateState.Black}] );
+          }
+      },
 
-      
-
-      showValidMoves: function() {
-        $(".coorSpace").removeClass("available");
-        var coords = validPositions();
+      showValidMoves: function(e, coords) {
+        if(coords.length > 0) {
           $.each(coords, function (ix, itm) {
             $("#xy_" + itm.X + "_" + itm.Y).addClass("available");
           });
-      }, 
-      
-      changeSpace: function() {
-
-        if ($(this).hasClass("blue-circle")) {
-          $(this).removeClass("blue-circle");
-          changeModelState(this.id, coordinateState.Empty);
-        }
-        else if ($(this).hasClass("red-circle")) {
-          $(this).removeClass("red-circle");
-          $(this).addClass("blue-circle");
-          changeModelState(this.id, coordinateState.Black);
         }
         else {
-          $(this).addClass("red-circle");
-          changeModelState(this.id, coordinateState.White);
+          $(document).trigger("BlacksMove");
         }
       }
     }
@@ -72,9 +53,12 @@ var Reversi = (function () {
 )();
 
   	$(document).ready(function () {
-  	      $( ".coorSpace" ).on("click",Reversi.changeSpace);
-          $("#btnCheck").on("click", Reversi.showValidMoves);
+
+      $(document).bind("CoordinateStateChanged", Reversi.changeXYSpace);    
+      $(document).bind("BlacksTurn", Reversi.showValidMoves);   
+      $(".coorSpace").on("click", Reversi.makeMove);     
+      // while(RGS.gameState !== gameStates.GameOver){
+      RGS.playGame();
+      //}
           
-          RGS.askToBeNotified(Reversi.changeXYSpace); 
-          RGS.playGame();
     });
