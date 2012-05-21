@@ -13,16 +13,24 @@ var RGS = (function () {
 	//Privates 
 	var _myState = gameStates.NewGame;;
 	var _opponentCouldMove = true;
-
+	var _translist =[];
 	
+    var execute = function()
+    {
+    	if (_translist.length >0)
+    	{
+    		$.each(_translist[_translist.length -1], function( ix, itm) {
+    			RM.changeCoordinateState(itm.X, itm.Y, itm.Color);
+    		});
+    	}
+    };
 
 	var makeMove = function(player)
 	{
-		var pos = RM.validPositions(player);
-		var selectedMove =null;
-		if (pos.length > 0) {
-			selectedMove = pos[Math.floor((Math.random()*pos.length))];
-			RM.makeMove(selectedMove.X, selectedMove.Y, player);
+		var pos = RM.bestPosition(player);
+		if (pos !==null && pos !== undefined) {
+			_translist.push(RM.makeMove(pos.X, pos.Y, player));
+			execute();
 			_opponentCouldMove = true;
 		}
 		else {
@@ -54,7 +62,7 @@ var RGS = (function () {
 
 	var	newGame = function() {
 	    
-	    RM.emptyBoard(8,8);
+	    RM.emptyBoard();
 	    RM.changeCoordinateState(4,4,coordinateState.White);
 	    RM.changeCoordinateState(5,5,coordinateState.White);
 	    RM.changeCoordinateState(4,5,coordinateState.Black);
@@ -71,11 +79,13 @@ var RGS = (function () {
 	};
 
 	return  {
+
 		  
 		blacksMove : function(e, itm) {
 	 	if(itm !== null && itm !== undefined){
 	 		_opponentCouldMove = true;
-	 		RM.makeMove(itm.X, itm.Y, itm.State);	
+	 		_translist.push(RM.makeMove(itm.X, itm.Y, itm.State));
+	 		execute();	
 	 	}
 	 	else {
 			checkGameOver();

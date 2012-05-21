@@ -11,11 +11,12 @@ var coordinateState = {
 var RM = (function () {
     // Privates
     var _Coordinates = [];
-    var _Rows = 0;
-    var _Cols = 0;
+    var ROWS = 8;
+    var COLS = 8;
+
     var coordinate = function(x,y)
     {
-      return _Coordinates[((y - 1) * _Rows) + x-1];
+      return _Coordinates[((y - 1) * ROWS) + x-1];
     };
 
     var getOpponent = function(player)
@@ -39,22 +40,31 @@ var RM = (function () {
     return {
 
       
-      emptyBoard: function(cols,rows) {
-        _Rows = rows;
-        _Cols = cols;
-        _Coordinates = [];
-        var max = rows * cols;
-        for (var i = 0; i < max; i++)  {
-          _Coordinates.push( {
-            X: ( i % rows) + 1,
-            Y: parseInt( 1 + i / cols, 10),
-            State: coordinateState.Empty
-          });
+      emptyBoard: function() {
+      var values = [
+    99, -8, 8, 6, 6, 8, -8, -99,
+    -8,-24,-4,-3,-3,-4,-24,-8,
+    8,-4,7,4,4,7,-4,8,
+    6,-3,4,0,0,3,-3,6,
+    6,-3,4,0,0,4,-3,6,
+    8,-4,7,4,4,7,-4,8,
+    -8,-24,-4,-3,-3,-4,-24,-8,
+    99, -8, 8, 6, 6, 8, -8, -99
+    ];
+      _Coordinates = [];
+      var max = ROWS * COLS;
+      for (var i = 0; i < max; i++)  {
+        _Coordinates.push( {
+        X: ( i % ROWS) + 1,
+        Y: parseInt( 1 + i / COLS, 10),
+        State: coordinateState.Empty, 
+        Value: values[i]
+      });
         }
       },
 
       coordinateState: function(x,y) {
-        if (x <= 0 || x > _Cols || y <= 0 || y > _Rows) {
+        if (x <= 0 || x > COLS || y <= 0 || y > ROWS) {
           return coordinateState.Illegal;
         }
         return coordinate(x,y).State;
@@ -66,7 +76,6 @@ var RM = (function () {
         el.State = cs; 
 
         $( document ).trigger( "CoordinateStateChanged", [el] );
-      //  notify(x, y, cs);
       },
 
       
@@ -76,8 +85,13 @@ var RM = (function () {
          var currX; 
          var currY;
          var candidates =[];
+         var transaction = [];
 
-         RM.changeCoordinateState(x,y,player);
+         transaction.push(
+          { X: x,
+            Y: y, 
+            Color: player});
+         //RM.changeCoordinateState(x,y,player);
 
         $.each(directions, function(ix, dir) {
           currX = x + dir.X;
@@ -91,12 +105,31 @@ var RM = (function () {
           if( RM.coordinateState(currX, currY) == player)
           {
             $.each( candidates, function(ix,itm){
-              RM.changeCoordinateState( itm.X,itm.Y,player);                
+             // RM.changeCoordinateState( itm.X,itm.Y,player); 
+             transaction.push( 
+                { X:itm.X,
+                  Y:itm.Y,
+                  Color:player});
             });   
           }
          candidates =  candidates.splice(candidates.length, candidates.length);
         });
+        return transaction;
       },
+
+    bestPosition : function (player) {
+      var pos = RM.validPositions(player);
+      var bestPos = null;
+      if (pos.length > 0) {
+        bestPos = pos[0];
+        $.each(pos, function(ix, itm){
+          if(itm.Value > bestPos.Value){
+            bestPos = itm;
+          }
+        });
+      }
+      return bestPos;
+    },
 
     validPositions: function( player) {
        var opponent = getOpponent(player);
@@ -105,7 +138,7 @@ var RM = (function () {
        var currX; 
        var currY; 
        var foundOpponent = false; 
-
+       
        $.each(markers, function(ix, itm){
           $.each(directions, function(ix, dir) {
             currX = itm.X + dir.X;
