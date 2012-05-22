@@ -13,24 +13,13 @@ var RGS = (function () {
 	//Privates 
 	var _myState = gameStates.NewGame;;
 	var _opponentCouldMove = true;
-	var _translist =[];
 	
-    var execute = function()
-    {
-    	if (_translist.length >0)
-    	{
-    		$.each(_translist[_translist.length -1], function( ix, itm) {
-    			RM.changeCoordinateState(itm.X, itm.Y, itm.Color);
-    		});
-    	}
-    };
-
 	var makeMove = function(player)
 	{
 		var pos = RM.bestPosition(player);
 		if (pos !==null && pos !== undefined) {
-			_translist.push(RM.makeMove(pos.X, pos.Y, player));
-			execute();
+			mover.add(RM.makeMove(pos.X, pos.Y, player));
+			mover.execute();
 			_opponentCouldMove = true;
 		}
 		else {
@@ -84,8 +73,8 @@ var RGS = (function () {
 		blacksMove : function(e, itm) {
 	 	if(itm !== null && itm !== undefined){
 	 		_opponentCouldMove = true;
-	 		_translist.push(RM.makeMove(itm.X, itm.Y, itm.State));
-	 		execute();	
+	 		mover.add(RM.makeMove(itm.X, itm.Y, itm.State));
+	 		mover.execute();	
 	 	}
 	 	else {
 			checkGameOver();

@@ -19,13 +19,7 @@ var RM = (function () {
       return _Coordinates[((y - 1) * ROWS) + x-1];
     };
 
-    var getOpponent = function(player)
-    {
-      return  player === coordinateState.Black 
-        ? coordinateState.White
-        : coordinateState.Black;
-    };
-
+    
     var playerMarkers = function(player) 
     {
       var retval = [];
@@ -42,14 +36,14 @@ var RM = (function () {
       
       emptyBoard: function() {
       var values = [
-    99, -8, 8, 6, 6, 8, -8, -99,
+    99, -8, 8, 6, 6, 8, -8, 99,
     -8,-24,-4,-3,-3,-4,-24,-8,
     8,-4,7,4,4,7,-4,8,
     6,-3,4,0,0,3,-3,6,
     6,-3,4,0,0,4,-3,6,
     8,-4,7,4,4,7,-4,8,
     -8,-24,-4,-3,-3,-4,-24,-8,
-    99, -8, 8, 6, 6, 8, -8, -99
+    99, -8, 8, 6, 6, 8, -8, 99
     ];
       _Coordinates = [];
       var max = ROWS * COLS;
@@ -62,6 +56,14 @@ var RM = (function () {
       });
         }
       },
+
+      opponent : function(player)
+    {
+      return  player === coordinateState.Black 
+        ? coordinateState.White
+        : coordinateState.Black;
+    },
+
 
       coordinateState: function(x,y) {
         if (x <= 0 || x > COLS || y <= 0 || y > ROWS) {
@@ -81,7 +83,7 @@ var RM = (function () {
       
       makeMove: function (x, y, player) {
 
-         var opponent = getOpponent(player);
+         var opponent = RM.opponent(player);
          var currX; 
          var currY;
          var candidates =[];
@@ -132,7 +134,7 @@ var RM = (function () {
     },
 
     validPositions: function( player) {
-       var opponent = getOpponent(player);
+       var opponent = RM.opponent(player);
        var retval = [];
        var markers = playerMarkers(player);   
        var currX; 

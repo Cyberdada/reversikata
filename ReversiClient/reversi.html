@@ -142,7 +142,11 @@
 </tbody>
 </table>
 
-<div id="notificationArea"></div>
+<div id="notificationArea">
+<button id="btnUndo" value="Undo" disabled="disabled"/>
+
+<button id="btnPlayAgain" value="Play again" style="display:none" />
+</div>
 
   <footer>
 
@@ -154,6 +158,7 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <!-- scripts concatenated and minified via build script -->
   <script src="js/libs/jquery-1.7.1.min.js"></script>
+  <script src="js/mover.js"></script>
   <script src="js/reversiGameState.js"></script>
   <script src="js/reversi.js"></script>
   <script src="js/directions.js"></script>
